@@ -1,0 +1,12 @@
+with cte as
+(
+    select
+    id,
+    datediff(recordDate,lag(recordDate) over (order by recordDate) ) as difference,
+    (temperature - lag(temperature) over (order by recordDate) ) as tempdifference
+    from weather
+    
+)
+select id from cte
+where tempdifference>0
+and difference =1
