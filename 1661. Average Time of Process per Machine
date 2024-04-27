@@ -1,0 +1,11 @@
+SELECT
+a.machine_id, Round(avg(b.timestamp -a.timestamp ),3) as processing_time 
+FROM
+Activity A
+inner join Activity B
+on A.process_id = B.process_id
+and a.machine_id = b.machine_id
+where a.activity_type = 'start'
+and b.activity_type = 'end'
+and a.process_id = b.process_id 
+group by a.machine_id
